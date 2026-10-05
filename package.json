@@ -1,0 +1,15 @@
+{
+  "name": "appicon-studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A local-first, dependency-free AppIcon.appiconset generator.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node tools/serve.mjs",
+    "test": "node --test"
+  }
+}

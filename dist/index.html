@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Turn a 1024×1024 logo into an Xcode AppIcon.appiconset. Free, private, and entirely in your browser."
+    />
+    <meta name="theme-color" content="#f7f8fc" />
+    <title>AppIcon Studio — Your logo, every size</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='17' fill='%233d56ed'/%3E%3Crect x='15' y='15' width='34' height='34' rx='10' fill='none' stroke='white' stroke-width='5'/%3E%3Cpath d='M40 11h13v13' fill='none' stroke='%23a8d9ff' stroke-width='5'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="header">
+        <a class="brand" href="./" aria-label="AppIcon Studio home">
+          <span class="brand-mark" aria-hidden="true"><span></span></span>
+          <span>AppIcon <span class="brand-light">Studio</span></span>
+        </a>
+        <span class="privacy-badge"
+          ><svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3 4 6v6c0 4 8 9 8 9s8-5 8-9V6l-8-3Z" />
+            <path d="m8 12 3 3 5-6" />
+          </svg>
+          Your image stays here</span
+        >
+      </header>
+
+      <main>
+        <div class="intro">
+          <div>
+            <p class="eyebrow">THE LITTLE ICON TOOLBOX</p>
+            <h1>
+              Your logo.<br class="mobile-break" />
+              Every app icon.
+            </h1>
+            <p class="intro-copy">
+              One 1024 × 1024 image. A complete icon set for Xcode.
+            </p>
+          </div>
+          <span class="format-tag"
+            ><span aria-hidden="true">{ }</span> AppIcon.appiconset</span
+          >
+        </div>
+
+        <div class="workspace">
+          <section class="editor-panel" aria-labelledby="source-heading">
+            <div class="section-heading">
+              <h2 id="source-heading">
+                <span class="step">01</span> Add your logo
+              </h2>
+              <span class="micro-label">1024 × 1024 px</span>
+            </div>
+            <input
+              type="file"
+              id="file-input"
+              accept="image/png,image/jpeg,image/webp"
+              hidden
+            />
+            <button
+              class="dropzone"
+              id="dropzone"
+              type="button"
+              aria-describedby="upload-hint"
+            >
+              <span class="upload-symbol" aria-hidden="true"
+                ><svg viewBox="0 0 48 48">
+                  <rect x="7" y="7" width="34" height="34" rx="10" />
+                  <path d="M24 32V17m-6 6 6-6 6 6" /></svg
+              ></span>
+              <span class="drop-title">Drop your logo here</span>
+              <span class="drop-copy">or <span>choose a file</span></span>
+              <span class="file-types" id="upload-hint"
+                >PNG, JPG, or WebP · up to 20 MB</span
+              >
+            </button>
+            <div class="selected-file" id="selected-file" hidden>
+              <div class="file-thumbnail">
+                <img id="file-thumbnail" alt="Uploaded logo" />
+              </div>
+              <div class="file-details">
+                <strong id="file-name"></strong><span id="file-meta"></span>
+              </div>
+              <button
+                class="icon-button"
+                type="button"
+                id="remove-file"
+                aria-label="Remove logo"
+              >
+                ×
+              </button>
+            </div>
+            <p class="error-message" id="error-message" role="alert" hidden></p>
+
+            <div class="options">
+              <div class="section-heading">
+                <h2><span class="step">02</span> Set up your export</h2>
+              </div>
+              <fieldset class="platform-fieldset">
+                <legend>Platform</legend>
+                <div class="segmented-control">
+                  <label
+                    ><input
+                      type="radio"
+                      name="platform"
+                      value="all"
+                      checked
+                    /><span>iOS + macOS</span></label
+                  >
+                  <label
+                    ><input type="radio" name="platform" value="ios" /><span
+                      >iOS</span
+                    ></label
+                  >
+                  <label
+                    ><input type="radio" name="platform" value="mac" /><span
+                      >macOS</span
+                    ></label
+                  >
+                </div>
+              </fieldset>
+              <div class="option-row">
+                <div>
+                  <label for="background">Background color</label>
+                  <p>Fills transparent areas of your logo.</p>
+                </div>
+                <label class="color-control"
+                  ><input id="background" type="color" value="#ffffff" /><span
+                    id="background-value"
+                    >#FFFFFF</span
+                  ></label
+                >
+              </div>
+              <div class="option-row" id="mac-option">
+                <div>
+                  <label for="mac-rounded">Round macOS corners</label>
+                  <p>Adds the inset shape used in the Dock.</p>
+                </div>
+                <input
+                  class="switch"
+                  id="mac-rounded"
+                  type="checkbox"
+                  checked
+                />
+              </div>
+            </div>
+          </section>
+
+          <section class="preview-panel" aria-labelledby="preview-heading">
+            <div class="preview-heading">
+              <h2 id="preview-heading">A little preview</h2>
+              <span id="preview-state">Waiting for your logo</span
+              ><select
+                id="preview-platform"
+                aria-label="Preview platform"
+                hidden
+              >
+                <option value="ios">iOS</option>
+                <option value="mac">macOS</option>
+              </select>
+            </div>
+            <div class="preview-stage" id="preview-stage">
+              <div class="preview-grid" aria-hidden="true"></div>
+              <div class="hero-icon">
+                <canvas
+                  id="hero-canvas"
+                  width="512"
+                  height="512"
+                  aria-label="App icon preview"
+                ></canvas>
+                <div
+                  class="placeholder-mark"
+                  id="placeholder-mark"
+                  aria-hidden="true"
+                >
+                  <i></i><i></i><i></i><i></i>
+                </div>
+              </div>
+              <span class="preview-caption" id="preview-caption"
+                >Your next app starts here.</span
+              >
+            </div>
+            <div
+              class="size-preview"
+              aria-label="Previews at common icon sizes"
+            >
+              <div>
+                <div class="size-well">
+                  <canvas
+                    id="preview-60"
+                    width="120"
+                    height="120"
+                    class="mini-icon size-60"
+                  ></canvas>
+                </div>
+                <span>60 pt</span>
+              </div>
+              <div>
+                <div class="size-well">
+                  <canvas
+                    id="preview-40"
+                    width="80"
+                    height="80"
+                    class="mini-icon size-40"
+                  ></canvas>
+                </div>
+                <span>40 pt</span>
+              </div>
+              <div>
+                <div class="size-well">
+                  <canvas
+                    id="preview-29"
+                    width="58"
+                    height="58"
+                    class="mini-icon size-29"
+                  ></canvas>
+                </div>
+                <span>29 pt</span>
+              </div>
+              <div>
+                <div class="size-well">
+                  <canvas
+                    id="preview-20"
+                    width="40"
+                    height="40"
+                    class="mini-icon size-20"
+                  ></canvas>
+                </div>
+                <span>20 pt</span>
+              </div>
+            </div>
+            <div class="export-area">
+              <div class="export-summary">
+                <span class="archive-symbol" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24">
+                    <rect x="4" y="4" width="16" height="16" rx="4" />
+                    <path d="M12 4v8m-2 3h4v3h-4Z" /></svg
+                ></span>
+                <div>
+                  <strong>AppIcon.appiconset.zip</strong
+                  ><span id="export-meta"
+                    >30 icon slots · iPhone, iPad & Mac</span
+                  >
+                </div>
+              </div>
+              <button
+                class="download-button"
+                id="download"
+                type="button"
+                disabled
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4" /></svg
+                ><span id="download-label">Download icon set</span>
+              </button>
+              <p class="export-help" id="status-message" role="status">
+                Add your logo to get started.
+              </p>
+            </div>
+          </section>
+        </div>
+        <div class="bottom-note">
+          <span
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m6 12 4 4 8-8" />
+            </svg>
+            All sizes. Contents.json included. Ready for Xcode.</span
+          ><span>No uploads. No accounts. Just icons.</span>
+        </div>
+      </main>
+      <footer>
+        <span>A small tool for the things you’re building.</span
+        ><span>AppIcon Studio <span class="footer-version">v0.1</span></span>
+      </footer>
+    </div>
+  </body>
+</html>
